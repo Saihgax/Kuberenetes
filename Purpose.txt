@@ -1,0 +1,1 @@
+I am making this git repo for POC of how I can leversage the use of K8s in workplace
