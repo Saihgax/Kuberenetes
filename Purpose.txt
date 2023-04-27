@@ -1,1 +1,48 @@
 I am making this git repo for POC of how I can leversage the use of K8s in workplace
+
+
+
+-----------------------------------------------------------
+Demo Project ->
+Simple setup of web application and database (MongoDB)
+
+Components:
+
+2 Deployment/Pod
+2 Service
+1 ConfigMap
+1 Secret
+
+We will create an internal service so that all components of that cluster can communicate amongst themselves
+
+We need Database URL and credentials to connect and authenticate to DB
+
+Config Map	Secret
+----------	------
+DB Url		DB Username
+		DB Pwd
+
+We will reference this inside the deployment file.
+
+For hosting Mongo Express, we will be using external service to allow external requests to talk to the pod
+URL: http://<IP Addrees of the node>:<Port of external service>
+
+Secret lives in K8s and not inside the repository, so we won't give username and password for DB in the same config file
+
+Secret Configuration File
+-------------------------
+
+- kind: 		"Secret"
+- metadata/name:	a random name
+- type:			"Opaque" - default for arbitrary key-value pairs
+- data: 		the actual contents (in key value pairs) 
+
+NOTE: Always run the secret.yml file before the deployment.yml file
+
+Which database to connect?
+MongoDB Address/Internal Service
+ME_CONFIG_MONGODB_SERVER
+
+Which credentials to authenticate?
+ME_CONFIG_MONGODB_ADMINUSERNAME
+ME_CONFIG_MONGODB_ADMINPASSWORD
